@@ -4,322 +4,73 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>ローマ字の練習</title>
+
+    <!-- SEO Meta Tags -->
+    <title>ローマ字の練習 - タブレット対応の小学生向け学習アプリ | 無料ひらがな→ローマ字変換練習</title>
+    <meta name="description" content="小学生向けのローマ字練習アプリ。ひらがなを見ながらローマ字で入力する練習ができます。タブレット・スマホ対応、3つの難易度レベル、効果音付き。無料で使える教育ツール。">
+    <meta name="keywords" content="ローマ字, 練習, 小学生, 教育, 学習, ひらがな, アプリ, タブレット, 無料, 子供, 日本語">
+    <meta name="author" content="jimitas">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jimitas.github.io/romaji/">
+
+    <!-- OGP Meta Tags -->
+    <meta property="og:title" content="ローマ字の練習 - タブレット対応の小学生向け学習アプリ">
+    <meta property="og:description" content="小学生向けのローマ字練習アプリ。ひらがなを見ながらローマ字で入力する練習ができます。タブレット・スマホ対応、3つの難易度レベル、効果音付き。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jimitas.github.io/romaji/">
+    <meta property="og:image" content="https://jimitas.github.io/romaji/image/coin.png">
+    <meta property="og:image:alt" content="ローマ字練習アプリのスクリーンショット">
+    <meta property="og:site_name" content="ローマ字の練習">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ローマ字の練習 - タブレット対応の小学生向け学習アプリ">
+    <meta name="twitter:description" content="小学生向けのローマ字練習アプリ。ひらがなを見ながらローマ字で入力する練習ができます。タブレット・スマホ対応、3つの難易度レベル、効果音付き。">
+    <meta name="twitter:image" content="https://jimitas.github.io/romaji/image/coin.png">
+    <meta name="twitter:creator" content="@jimitas">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ローマ字の練習",
+      "description": "小学生向けのローマ字練習アプリ。ひらがなを見ながらローマ字で入力する練習ができます。タブレット・スマホ対応、3つの難易度レベル、効果音付き。",
+      "url": "https://jimitas.github.io/romaji/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "jimitas"
+      },
+      "datePublished": "2024-12-26",
+      "inLanguage": "ja",
+      "isAccessibleForFree": true,
+      "educationalLevel": "Elementary School",
+      "learningResourceType": "Interactive Resource",
+      "educationalUse": "Practice",
+      "typicalAgeRange": "6-12",
+      "interactivityType": "active",
+      "keywords": ["ローマ字", "練習", "小学生", "教育", "学習", "ひらがな", "タブレット", "無料"],
+      "featureList": [
+        "3つの難易度レベル（かんたん・むずかしい・混合）",
+        "タブレット・スマートフォン対応",
+        "効果音による操作フィードバック",
+        "色弱対応のアクセシブルデザイン",
+        "大文字・小文字切り替え機能",
+        "スコア表示機能"
+      ]
+    }
+    </script>
+
     <link href="bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* 全体のベーススタイル */
-        body {
-            background: linear-gradient(135deg, #74b9ff, #0984e3, #a29bfe) !important;
-            min-height: 100vh;
-            font-family: 'Hiragino Sans', 'Yu Gothic UI', 'Meiryo UI', sans-serif;
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            max-height: 95vh;
-            overflow-y: auto;
-        }
-
-        h1 {
-            color: #2d3436 !important;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            font-weight: bold !important;
-            margin-bottom: 0.5rem !important;
-        }
-
-        /* レベル選択ボタン */
-        form {
-            gap: 20px !important;
-            padding: 10px 0;
-            flex-wrap: wrap;
-        }
-
-        form label {
-            background: linear-gradient(145deg, #ff7675, #fd79a8) !important;
-            color: white !important;
-            border: 3px solid transparent !important;
-            border-radius: 25px !important;
-            box-shadow: 0 5px 15px rgba(255, 118, 117, 0.3);
-            transition: all 0.3s ease;
-            user-select: none;
-            font-weight: bold;
-            padding: 15px 30px !important;
-            margin: 10px !important;
-            min-width: 140px;
-            position: relative;
-        }
-
-        form label::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            width: 0;
-            height: 0;
-            transform: translateY(-50%);
-            transition: all 0.3s ease;
-        }
-
-        form label:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 118, 117, 0.4) !important;
-        }
-
-        form label:has(input:checked) {
-            background: linear-gradient(145deg, #6c5ce7, #a29bfe) !important;
-            border-color: #2d3436 !important;
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
-        }
-
-        form label:has(input:checked)::after {
-            border-left: 8px solid white;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-        }
-
-        /* テキストボックス */
-        #text_box1, #text_box2 {
-            background: linear-gradient(145deg, #ffeaa7, #fdcb6e) !important;
-            border: 3px solid #e17055 !important;
-            border-radius: 15px !important;
-            color: #2d3436 !important;
-            font-weight: bold !important;
-            box-shadow: 0 5px 15px rgba(225, 112, 85, 0.2);
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            line-height: 1.2 !important;
-        }
-
-        /* メインボタン群 */
-        #btnQuestion {
-            background: linear-gradient(145deg, #e17055, #d63031) !important;
-            border: 3px solid #2d3436 !important;
-            border-radius: 15px !important;
-            color: white !important;
-            font-weight: bold !important;
-            box-shadow: 0 5px 15px rgba(225, 112, 85, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        #btnQuestion::before {
-            content: '▶';
-            margin-right: 8px;
-            font-size: 0.8em;
-        }
-
-        #btnQuestion:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(225, 112, 85, 0.4) !important;
-        }
-
-        #btnShow, #btnDelete, #btnClear {
-            background: linear-gradient(145deg, #0984e3, #74b9ff) !important;
-            border: 3px solid #2d3436 !important;
-            border-radius: 15px !important;
-            color: white !important;
-            font-weight: bold !important;
-            box-shadow: 0 5px 15px rgba(9, 132, 227, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        #btnShow::before {
-            content: '👁';
-            margin-right: 8px;
-        }
-
-        #btnDelete::before {
-            content: '←';
-            margin-right: 8px;
-            font-size: 1.2em;
-        }
-
-        #btnClear::before {
-            content: '🗑';
-            margin-right: 8px;
-        }
-
-        #btnShow:hover, #btnDelete:hover, #btnClear:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(9, 132, 227, 0.4) !important;
-        }
-
-        #btnCaps {
-            background: linear-gradient(145deg, #a29bfe, #6c5ce7) !important;
-            border: none !important;
-            border-radius: 15px !important;
-            color: white !important;
-            font-weight: bold !important;
-            box-shadow: 0 5px 15px rgba(162, 155, 254, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        #btnCaps:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(162, 155, 254, 0.4) !important;
-        }
-
-        /* キーパレットボタンのデフォルトスタイル */
-        #keyPallet .btn {
-            width: 80px;
-            height: 80px;
-            font-size: 2.5rem;
-            font-family: 'MS PGothic', 'Yu Gothic UI', 'Hiragino Sans', 'Arial', sans-serif;
-            font-weight: normal !important;
-            margin: 5px;
-            background: linear-gradient(145deg, #74b9ff, #0984e3) !important;
-            border: 3px solid #2d3436 !important;
-            border-radius: 20px !important;
-            color: white !important;
-            box-shadow: 0 5px 15px rgba(116, 185, 255, 0.3);
-            transition: all 0.2s ease;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            text-transform: none !important;
-        }
-
-        #keyPallet .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(116, 185, 255, 0.4) !important;
-            background: linear-gradient(145deg, #a29bfe, #6c5ce7) !important;
-        }
-
-        #keyPallet .btn:active {
-            transform: translateY(0px) scale(0.95);
-        }
-
-        /* スコア画像のデフォルトスタイル */
-        #scorePallet img {
-            width: 30px;
-            height: 30px;
-            margin: 3px;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
-            transition: transform 0.2s ease;
-        }
-
-        #scorePallet img:hover {
-            transform: scale(1.1);
-        }
-
-        /* タブレット向けレスポンシブデザイン */
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-            body {
-                padding: 30px !important;
-            }
-
-            .h1 {
-                font-size: 3rem !important;
-                margin-bottom: 2rem !important;
-            }
-
-            form label {
-                font-size: 1.5rem !important;
-                padding: 15px 25px !important;
-                margin: 0 15px !important;
-            }
-
-            #text_box1, #text_box2 {
-                height: 80px !important;
-                font-size: 2rem !important;
-                margin: 20px 0 !important;
-            }
-
-            .btn {
-                font-size: 1.4rem !important;
-                padding: 15px 25px !important;
-                margin: 10px !important;
-                min-width: 120px !important;
-                min-height: 60px !important;
-            }
-
-            #keyPallet .btn {
-                width: 90px !important;
-                height: 90px !important;
-                font-size: 3rem !important;
-                margin: 8px !important;
-            }
-
-            #scorePallet img {
-                width: 40px !important;
-                height: 40px !important;
-                margin: 5px !important;
-            }
-        }
-
-        /* スマートフォン向け */
-        @media screen and (max-width: 767px) {
-            body {
-                padding: 15px !important;
-            }
-
-            .h1 {
-                font-size: 2rem !important;
-            }
-
-            form label {
-                font-size: 1.2rem !important;
-                padding: 10px 15px !important;
-                margin: 5px !important;
-                display: block;
-                text-align: center;
-            }
-
-            #text_box1, #text_box2 {
-                height: 70px !important;
-                font-size: 1.5rem !important;
-            }
-
-            .btn {
-                font-size: 1.2rem !important;
-                padding: 12px 20px !important;
-                margin: 5px !important;
-                min-width: 100px !important;
-            }
-
-            #keyPallet .btn {
-                width: 70px !important;
-                height: 70px !important;
-                font-size: 2rem !important;
-                margin: 5px !important;
-            }
-        }
-
-        /* 横向きタブレット対応 */
-        @media screen and (min-width: 1025px) and (orientation: landscape) {
-            #keyPallet .btn {
-                width: 100px !important;
-                height: 100px !important;
-                font-size: 3rem !important;
-            }
-        }
-
-        /* 全体の基本スタイル調整 */
-        form {
-            margin-bottom: 0.5rem;
-        }
-
-        form input[type="radio"] {
-            margin-right: 8px;
-        }
-
-        /* アニメーション効果 */
-        @keyframes bounce {
-            0%, 20%, 60%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            80% { transform: translateY(-5px); }
-        }
-
-        .bounce {
-            animation: bounce 0.6s ease;
-        }
-    </style>
+    <link href="style.css" rel="stylesheet">
     <script src="main.js"></script>
 </head>
 
