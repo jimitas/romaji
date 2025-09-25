@@ -3,15 +3,8 @@ const pi = new Audio("./Sounds/pi.mp3");
 const set = new Audio("./Sounds/set.mp3");
 const seikai1 = new Audio("./Sounds/seikai.mp3");
 const seikai2 = new Audio("./Sounds/seikai2.mp3");
-const reset = new Audio("./Sounds/reset.mp3");
-const right = new Audio("./Sounds/right.mp3");
-const move1 = new Audio("./Sounds/move1.mp3");
-const move2 = new Audio("./Sounds/move2.mp3");
 const cancel = new Audio("./Sounds/move2.mp3");
 const cancel2 = new Audio("./Sounds/move1.mp3");
-const alert = new Audio("./Sounds/alert.mp3");
-const kako = new Audio("./Sounds/kako.mp3");
-const piron = new Audio("./Sounds/piron.mp3");
 
 function roma() {
 
@@ -126,7 +119,7 @@ function roma() {
         btn.addEventListener("click", () => {
           if (!flag) return;
           myAnswer = myAnswer + upLetter.charAt(i);
-          myAnserWrite();
+          myAnswerWrite();
           checkAnswer();
           pi.currentTime = 0;
           pi.play();
@@ -136,7 +129,7 @@ function roma() {
         btn.addEventListener("click", () => {
           if (!flag) return;
           myAnswer = myAnswer + lowLetter.charAt(i);
-          myAnserWrite();
+          myAnswerWrite();
           checkAnswer();
           pi.currentTime = 0;
           pi.play();
@@ -165,7 +158,7 @@ function roma() {
     cancel2.currentTime = 0;
     cancel2.play();
     myAnswer = myAnswer.substring(0, myAnswer.length - 1);
-    myAnserWrite();
+    myAnswerWrite();
   }
 
   function textClear() {
@@ -174,7 +167,7 @@ function roma() {
     cancel.currentTime = 0;
     cancel.play();
     myAnswer = "";
-    myAnserWrite();
+    myAnswerWrite();
   }
 
   function question() {
@@ -187,7 +180,7 @@ function roma() {
     text_box1.style.color = "black";
     text_box1.innerHTML = data[index].word;
     myAnswer = "";
-    myAnserWrite();
+    myAnswerWrite();
   }
 
   function showAnswer() {
@@ -199,7 +192,7 @@ function roma() {
     if (data[index].ans_3) answers = answers + "," + data[index].ans_3;
     if (data[index].ans_4) answers = answers + "," + data[index].ans_4;
     myAnswer = answers;
-    myAnserWrite();
+    myAnswerWrite();
   }
 
   function checkAnswer() {
@@ -208,7 +201,7 @@ function roma() {
     if (data[index].ans_1 == answer || data[index].ans_2 == answer || data[index].ans_3 == answer || data[index].ans_4 == answer) sendRight();
   }
 
-  function myAnserWrite() {
+  function myAnswerWrite() {
     text_box2.innerHTML = myAnswer;
   }
 
@@ -223,6 +216,7 @@ function roma() {
   }
 
   function scoreWrite() {
+    const scorePallet = document.getElementById("scorePallet");
     const img = document.createElement("img");
     img.src = "./image/coin.png";
     scorePallet.appendChild(img);
