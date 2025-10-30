@@ -9,7 +9,8 @@ const cancel2 = new Audio("./Sounds/move1.mp3");
 function roma() {
 
   var index = 0;
-  var score = 0;
+  // ローカルストレージからスコアを復元
+  var score = parseInt(localStorage.getItem('romajiScore')) || 0;
   var flag = false;
   var capsFlag = false;
   var myAnswer = ""
@@ -128,6 +129,7 @@ function roma() {
   document.getElementById("mode_3").addEventListener("change", () => { changeMode(3) }, false);
 
   createButtons();
+  loadScore(); // 保存されているスコアを復元
 
   function createButtons() {
     keyPallet.innerHTML = "";
@@ -270,6 +272,19 @@ function roma() {
     const img = document.createElement("img");
     img.src = "./image/coin.png";
     scorePallet.appendChild(img);
+    // ローカルストレージにスコアを保存
+    localStorage.setItem('romajiScore', score);
+  }
+
+  // ページ読み込み時に保存されているスコアを復元
+  function loadScore() {
+    const scorePallet = document.getElementById("scorePallet");
+    scorePallet.innerHTML = ""; // 既存のコインをクリア
+    for (let i = 0; i < score; i++) {
+      const img = document.createElement("img");
+      img.src = "./image/coin.png";
+      scorePallet.appendChild(img);
+    }
   }
 }
 
