@@ -93,8 +93,24 @@ function roma() {
   const btnCaps = document.getElementById("btnCaps");
   const btnShow = document.getElementById("btnShow");
 
-  const upLetter = "AIUEOKSTNHMYRWGZDBPFJCĀĪŪĒŌ";
-  const lowLetter = "aiueokstnhmyrwgzdbpfjcâîûêô";
+  // QWERTY配列のキーレイアウト（3行 + 長音記号行）
+  const qwertyLayout = [
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+    ['â', 'î', 'û', 'ê', 'ô']
+  ];
+
+  const qwertyLayoutUpper = [
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
+    ['Ā', 'Ī', 'Ū', 'Ē', 'Ō']
+  ];
+
+  // 実際に使用する文字（これ以外のキーは無効化）
+  const activeLower = ['a', 'i', 'u', 'e', 'o', 'k', 's', 't', 'n', 'h', 'm', 'y', 'r', 'w', 'g', 'z', 'd', 'b', 'p', 'f', 'j', 'c', 'â', 'î', 'û', 'ê', 'ô'];
+  const activeUpper = ['A', 'I', 'U', 'E', 'O', 'K', 'S', 'T', 'N', 'H', 'M', 'Y', 'R', 'W', 'G', 'Z', 'D', 'B', 'P', 'F', 'J', 'C', 'Ā', 'Ī', 'Ū', 'Ē', 'Ō'];
 
   btnQuestion.addEventListener("click", () => { question() }, false);
   btnShow.addEventListener("click", () => { showAnswer() }, false);
@@ -111,32 +127,40 @@ function roma() {
 
   function createButtons() {
     keyPallet.innerHTML = "";
-    for (let i = 0; i < lowLetter.length; i++) {
-      const btn = document.createElement("button");
-      btn.classList = "btn btn-primary m-2 letter";
-      if (capsFlag) {
-        btn.innerHTML = upLetter.charAt(i);
-        btn.addEventListener("click", () => {
-          if (!flag) return;
-          myAnswer = myAnswer + upLetter.charAt(i);
-          myAnswerWrite();
-          checkAnswer();
-          pi.currentTime = 0;
-          pi.play();
-        })
-      } else {
-        btn.innerHTML = lowLetter.charAt(i);
-        btn.addEventListener("click", () => {
-          if (!flag) return;
-          myAnswer = myAnswer + lowLetter.charAt(i);
-          myAnswerWrite();
-          checkAnswer();
-          pi.currentTime = 0;
-          pi.play();
-        })
-      }
-      keyPallet.appendChild(btn);
-    }
+    const layout = capsFlag ? qwertyLayoutUpper : qwertyLayout;
+    const activeKeys = capsFlag ? activeUpper : activeLower;
+
+    // 各行ごとにキーボードを生成
+    layout.forEach((row, rowIndex) => {
+      const rowDiv = document.createElement("div");
+      rowDiv.classList.add("keyboard-row");
+
+      row.forEach(letter => {
+        const btn = document.createElement("button");
+        const isActive = activeKeys.includes(letter);
+
+        if (isActive) {
+          btn.classList = "btn btn-primary m-1 letter";
+          btn.innerHTML = letter;
+          btn.addEventListener("click", () => {
+            if (!flag) return;
+            myAnswer = myAnswer + letter;
+            myAnswerWrite();
+            checkAnswer();
+            pi.currentTime = 0;
+            pi.play();
+          });
+        } else {
+          btn.classList = "btn btn-secondary m-1 letter disabled";
+          btn.innerHTML = letter;
+          btn.disabled = true;
+        }
+
+        rowDiv.appendChild(btn);
+      });
+
+      keyPallet.appendChild(rowDiv);
+    });
   }
 
   function changeMode(num) {
@@ -195,10 +219,25 @@ function roma() {
     myAnswerWrite();
   }
 
+  // 長音記号を含む文字列を正規化する関数
+  function normalizeAnswer(str) {
+    return str
+      .toLowerCase()
+      .replace(/ā/gi, 'â')
+      .replace(/ī/gi, 'î')
+      .replace(/ū/gi, 'û')
+      .replace(/ē/gi, 'ê')
+      .replace(/ō/gi, 'ô');
+  }
+
   function checkAnswer() {
     if (!flag) return;
-    const answer = myAnswer.toLowerCase();
-    if (data[index].ans_1 == answer || data[index].ans_2 == answer || data[index].ans_3 == answer || data[index].ans_4 == answer) sendRight();
+    const answer = normalizeAnswer(myAnswer);
+    const ans1 = normalizeAnswer(data[index].ans_1);
+    const ans2 = normalizeAnswer(data[index].ans_2);
+    const ans3 = normalizeAnswer(data[index].ans_3);
+    const ans4 = normalizeAnswer(data[index].ans_4);
+    if (ans1 == answer || ans2 == answer || ans3 == answer || ans4 == answer) sendRight();
   }
 
   function myAnswerWrite() {
