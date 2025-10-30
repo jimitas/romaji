@@ -112,6 +112,10 @@ function roma() {
   const activeLower = ['a', 'i', 'u', 'e', 'o', 'k', 's', 't', 'n', 'h', 'm', 'y', 'r', 'w', 'g', 'z', 'd', 'b', 'p', 'f', 'j', 'c', 'â', 'î', 'û', 'ê', 'ô'];
   const activeUpper = ['A', 'I', 'U', 'E', 'O', 'K', 'S', 'T', 'N', 'H', 'M', 'Y', 'R', 'W', 'G', 'Z', 'D', 'B', 'P', 'F', 'J', 'C', 'Ā', 'Ī', 'Ū', 'Ē', 'Ō'];
 
+  // 母音と長音記号（背景をオレンジにする）
+  const vowelLower = ['a', 'i', 'u', 'e', 'o', 'â', 'î', 'û', 'ê', 'ô'];
+  const vowelUpper = ['A', 'I', 'U', 'E', 'O', 'Ā', 'Ī', 'Ū', 'Ē', 'Ō'];
+
   btnQuestion.addEventListener("click", () => { question() }, false);
   btnShow.addEventListener("click", () => { showAnswer() }, false);
   btnClear.addEventListener("click", () => { textClear() }, false);
@@ -129,6 +133,7 @@ function roma() {
     keyPallet.innerHTML = "";
     const layout = capsFlag ? qwertyLayoutUpper : qwertyLayout;
     const activeKeys = capsFlag ? activeUpper : activeLower;
+    const vowelKeys = capsFlag ? vowelUpper : vowelLower;
 
     // 各行ごとにキーボードを生成
     layout.forEach((row, rowIndex) => {
@@ -138,9 +143,15 @@ function roma() {
       row.forEach(letter => {
         const btn = document.createElement("button");
         const isActive = activeKeys.includes(letter);
+        const isVowel = vowelKeys.includes(letter);
 
         if (isActive) {
-          btn.classList = "btn btn-primary m-1 letter";
+          // 母音と長音記号は特別なクラスを追加
+          if (isVowel) {
+            btn.classList = "btn btn-primary m-1 letter vowel";
+          } else {
+            btn.classList = "btn btn-primary m-1 letter";
+          }
           btn.innerHTML = letter;
           btn.addEventListener("click", () => {
             if (!flag) return;

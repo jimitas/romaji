@@ -215,6 +215,17 @@ form label:has(input:checked)::after {
     background: linear-gradient(145deg, #b2bec3, #636e72) !important;
 }
 
+/* 母音と長音記号のボタン（オレンジ背景） */
+#keyPallet .btn.vowel {
+    background: linear-gradient(145deg, #ffb347, #ff8c42) !important;
+    box-shadow: 0 3px 10px rgba(255, 140, 66, 0.3);
+}
+
+#keyPallet .btn.vowel:hover {
+    background: linear-gradient(145deg, #ffa726, #ff6f00) !important;
+    box-shadow: 0 10px 25px rgba(255, 140, 66, 0.4) !important;
+}
+
 /* スコア画像のデフォルトスタイル */
 #scorePallet img {
     width: 30px;
